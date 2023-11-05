@@ -10,12 +10,12 @@ FinGuard is a comprehensive platform tailored to guide recent college graduates 
 ## How we built it
 - UX/UI: Figma
 - Front-end: React.js, CSS
-- Back-end: Flask(using Python),TensorFlow, IBM Z, ML
+- Back-end: Flask(using Python),TensorFlow, ML
 
 ## Challenges we ran into
 - Coming up with an innovative idea
 - Originally, we planned to make a mobile app but since none of us had experience with building a mobile app, we had to switch to making a web platform
-- First time implementing IBM Z
+
 
 ## Accomplishments that we're proud of
 - Collaborating together as a team 
