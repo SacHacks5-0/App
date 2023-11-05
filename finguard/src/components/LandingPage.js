@@ -9,8 +9,10 @@ function LandingPage(){
                 <h1>FinGuard</h1>
                 <h3>Every choice counts for a financially sustainable future</h3>
                 <div className="btn-loc">
-                    <a href="#" className="register">Register</a>
-                    <a href="#"  className="login">Login</a>
+                    
+                  <button className="register" onClick={() => window.location.href = 'register.jsx'}>Register</button>
+                  
+                  <button className="login" onClick={() => window.location.href = 'login.jsx'}>Login</button>
                 </div>
             </div>
         </div>
