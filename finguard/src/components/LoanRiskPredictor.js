@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Card, Text, Metric, Flex, AreaChart } from '@tremor/react';
-import { Bar } from 'react-chartjs-2';
 import './LoanRiskPredictor.css'
 import Select from 'react-select'
 import myImage from './image.png'
@@ -71,7 +70,29 @@ function LoanRiskPredictor() {
 
       // when calculate is clicked send data to backend
       const handleCalculate = () => {
+        const data = {
+          marital_status: selectedMaritalStatus ? selectedMaritalStatus.value : null,
+          income: selectedIncome ? selectedIncome.value : null,
+          education_level: selectedEducationLevel ? selectedEducationLevel.value : null,
+          loan_term: selectedLoanTerm ? selectedLoanTerm.value : null,
+        };
+
         // You can access the selected values from the state variables
+            // Send a POST request to the Flask server locally for testing
+        fetch('http://localhost:5000/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Prediction:', result.prediction);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
         console.log('Selected Credit Score:', selectedScore);
         console.log('Selected Marital Status:', selectedMaritalStatus);
         console.log('Selected Income:', selectedIncome);
