@@ -3,8 +3,9 @@ import { Card, Text, Metric, Flex, AreaChart } from '@tremor/react';
 import { Bar } from 'react-chartjs-2';
 import './LoanRiskPredictor.css'
 import Select from 'react-select'
+import myImage from './image.png'
 function LoanRiskPredictor() {
-
+  const [showImage, setShowImage] = useState(false);
   const [intrestRate] = useState('5.5%');
   const [lowerIncomeBound, setLowerIncomeBound] = useState(0);
   const [upperIncomeBound, setUpperIncomeBound] = useState(0);
@@ -16,18 +17,7 @@ function LoanRiskPredictor() {
   const [loanTermUpperBound, setLoanTermUpperBound] = useState(0);
 
 
-  const graphData = {
-    labels: incomeOptions.map((option) => option.label), // Labels for income ranges
-    datasets: [
-      {
-        label: 'Loan Term',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1,
-        data: loanTermOptions.map((option) => parseInt(option.value, 10)), // Loan terms as data
-      },
-    ],
-  };
+  
     const creditScores = [
         { value: 'Excellent', label: '800+' },
         { value: 'Good', label: '750-799' },
@@ -75,6 +65,8 @@ function LoanRiskPredictor() {
         { value: '30', label: '30 years' },
         // Add more options as needed
       ];
+      
+
 
 
       // when calculate is clicked send data to backend
@@ -172,12 +164,15 @@ function LoanRiskPredictor() {
         setLoanTermLowerBound(loanTermLowerBound);
         setLoanTermUpperBound(loanTermUpperBound);
         console.log(creditScoreLowerBound, " ", creditScoreUpperBound);
-
+        setShowImage(true);
       };
 
       let sendUpdates = () =>{
 
       }
+
+
+      
 
   return (
     <div className="main-c">
@@ -263,11 +258,7 @@ function LoanRiskPredictor() {
                   </Metric>
                   <Text>To: {lowerIncomeBound}</Text>
                 </Flex>
-                {/* <div className="graph-container">
-                  <h3>Loan Term vs. Income</h3>
-                  <Bar data={graphData} />
-                </div> */}
-
+                {showImage && <img src={myImage} alt="#" className="my-image"/>}
             </Card>
             <div className="info">
                 <p className="info-tag">
@@ -280,10 +271,10 @@ function LoanRiskPredictor() {
                   lowerIncomeBound: {lowerIncomeBound}
                 </p>
                 <p className="info-tag">
-                  lower Credit Limit: {loanTermLowerBound}
+                  lower Credit Limit: {creditScoreLowerBound}
                 </p>
                 <p className="info-tag">
-                  upper Credit Limit: {loanTermUpperBound}
+                  upper Credit Limit: {creditScoreUpperBound}
                 </p>
                 
 
