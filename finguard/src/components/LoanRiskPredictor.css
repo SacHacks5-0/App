@@ -1,13 +1,78 @@
-.main-c{
+ .main-c{
     height: 100vh;
     width: 100vw;
     --main-padding: 10px;
     --main-border: 8px;
     --main-shadow: 0px 10px 20px rgba(0, 0, 0, 0.19), 0px 6px 6px rgba(0, 0, 0, 0.23);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #EFEFEF;
+    @media(max-width: 1000px){
+        flex-direction: column;
+    }
 }
+
 
 .header{
     width: 100vw;
     height: 10vh;
     box-shadow: var(--main-shadow);
 }
+
+.input-commands{
+    width: 20%;
+    height: 80%;
+    overflow: hidden;
+    border-radius: var(--main-border);
+    box-shadow: var(--main-shadow);
+    padding: var(--main-padding);
+    @media(max-width: 1000px){
+        width: 90%;
+        overflow-y: visible; /* Disable the scrollbar on smaller screens */
+    }
+    
+}
+.info-con{
+    padding: var(--main-padding);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    
+  @media (max-width: 768px) {
+    .info-con {
+      width: 100%; 
+    }
+  }
+
+}
+.input-commands h1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.input-commands p{
+    font-weight: 600;
+}
+.Calculate{
+    cursor: pointer;
+}
+.btn-con{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.result{
+    width: 70%;
+    height: 80%;
+    border-radius: var(--main-border);
+    box-shadow: var(--main-shadow);
+    padding: var(--main-padding);
+    @media(max-width: 1000px){
+        width: 90%;
+    }
+} 
+
+
