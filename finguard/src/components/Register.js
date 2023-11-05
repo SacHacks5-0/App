@@ -26,4 +26,4 @@ function Register() {
   );
 }
 
-export default Signup;
+export default Register;
