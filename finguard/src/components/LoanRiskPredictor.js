@@ -1,8 +1,33 @@
 import React, { useState } from 'react'
+import { Card, Text, Metric, Flex, AreaChart } from '@tremor/react';
+import { Bar } from 'react-chartjs-2';
 import './LoanRiskPredictor.css'
 import Select from 'react-select'
 function LoanRiskPredictor() {
 
+  const [intrestRate] = useState('5.5%');
+  const [lowerIncomeBound, setLowerIncomeBound] = useState(0);
+  const [upperIncomeBound, setUpperIncomeBound] = useState(0);
+  const [selectedCreditScore, setSelectedCreditScore] = useState(null);
+  const [selectedLoanTerm, setSelectedLoanTerm] = useState(null);
+  const [creditScoreLowerBound, setCreditScoreLowerBound] = useState(0);
+  const [creditScoreUpperBound, setCreditScoreUpperBound] = useState(0);
+  const [loanTermLowerBound, setLoanTermLowerBound] = useState(0);
+  const [loanTermUpperBound, setLoanTermUpperBound] = useState(0);
+
+
+  const graphData = {
+    labels: incomeOptions.map((option) => option.label), // Labels for income ranges
+    datasets: [
+      {
+        label: 'Loan Term',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1,
+        data: loanTermOptions.map((option) => parseInt(option.value, 10)), // Loan terms as data
+      },
+    ],
+  };
     const creditScores = [
         { value: 'Excellent', label: '800+' },
         { value: 'Good', label: '750-799' },
@@ -50,10 +75,9 @@ function LoanRiskPredictor() {
         { value: '30', label: '30 years' },
         // Add more options as needed
       ];
-      const [selectedLoanTerm, setSelectedLoanTerm] = useState(null);
 
 
-      // when calculate is clicked 
+      // when calculate is clicked send data to backend
       const handleCalculate = () => {
         // You can access the selected values from the state variables
         console.log('Selected Credit Score:', selectedScore);
@@ -63,7 +87,97 @@ function LoanRiskPredictor() {
         console.log('Selected Loan Term:', selectedLoanTerm);
     
         // You can perform calculations or any other logic here with the selected data
+        const selectedIncomeValue = selectedIncome.value;
+        console.log(selectedIncomeValue)
+        // Here, you can define your logic to calculate the lower and upper income bounds
+        switch (selectedIncomeValue) {
+          case '30-40K':
+            setLowerIncomeBound(30000);
+            setUpperIncomeBound(40000);
+            break;
+          case '50-75K':
+            setLowerIncomeBound(50000);
+            setUpperIncomeBound(75000);
+            break;
+          case '100-150K':
+            setLowerIncomeBound(100000);
+            setUpperIncomeBound(150000);
+            break;
+          case '150-250K':
+            setLowerIncomeBound(150000);
+            setUpperIncomeBound(250000);
+            break;
+          case '250K+':
+            setLowerIncomeBound(250000);
+            setUpperIncomeBound(Infinity); // Use Infinity for the upper bound
+            break;
+          default:
+            // Handle the case when no option is selected
+            setLowerIncomeBound(0);
+            setUpperIncomeBound(0);
+        }
+        const selectedCreditScoreValue = selectedScore ? selectedScore.value : null;
+        const selectedLoanTermValue = selectedLoanTerm ? selectedLoanTerm.value : null;
+
+        // Define your logic to calculate credit score bounds based on selectedCreditScoreValue
+        let creditScoreLowerBound = 0;
+        let creditScoreUpperBound = 0;
+
+        if (selectedCreditScoreValue === 'Excellent') {
+          creditScoreLowerBound = 800;
+          creditScoreUpperBound = Infinity; // No upper bound
+        } else if (selectedCreditScoreValue === 'Good') {
+          creditScoreLowerBound = 750;
+          creditScoreUpperBound = 799;
+        } else if (selectedCreditScoreValue === 'Fair') {
+          creditScoreLowerBound = 650;
+          creditScoreUpperBound = 749;
+        } else if (selectedCreditScoreValue === 'Poor') {
+          creditScoreLowerBound = 550;
+          creditScoreUpperBound = 649;
+        } else if (selectedCreditScoreValue === 'Bad') {
+          creditScoreLowerBound = 0;
+          creditScoreUpperBound = 549;
+        } else {
+          // Handle the case when no option is selected
+          creditScoreLowerBound = 0;
+          creditScoreUpperBound = 0;
+        }
+
+        // Define your logic to calculate loan term bounds based on selectedLoanTermValue
+        let loanTermLowerBound = 0;
+        let loanTermUpperBound = 0;
+
+        if (selectedLoanTermValue === '5') {
+          loanTermLowerBound = 5;
+          loanTermUpperBound = 5;
+        } else if (selectedLoanTermValue === '10') {
+          loanTermLowerBound = 10;
+          loanTermUpperBound = 10;
+        } else if (selectedLoanTermValue === '15') {
+          loanTermLowerBound = 15;
+          loanTermUpperBound = 15;
+        } else if (selectedLoanTermValue === '30') {
+          loanTermLowerBound = 30;
+          loanTermUpperBound = 30;
+        } else {
+          // Handle the case when no option is selected
+          loanTermLowerBound = 0;
+          loanTermUpperBound = 0;
+        }
+
+        // Set the credit score bounds and loan term bounds in state
+        setCreditScoreLowerBound(creditScoreLowerBound);
+        setCreditScoreUpperBound(creditScoreUpperBound);
+        setLoanTermLowerBound(loanTermLowerBound);
+        setLoanTermUpperBound(loanTermUpperBound);
+        console.log(creditScoreLowerBound, " ", creditScoreUpperBound);
+
       };
+
+      let sendUpdates = () =>{
+
+      }
 
   return (
     <div className="main-c">
@@ -138,7 +252,45 @@ function LoanRiskPredictor() {
 
 
         </div>
-        <div className="result">Results</div>
+        <div className="result">
+            {/* <AreaChart /> */}
+            <Card className="card" maxWidth="max-w-md">
+
+              <Text>Predictions</Text>
+                <Flex>
+                  <Metric>
+                    From: {upperIncomeBound}
+                  </Metric>
+                  <Text>To: {lowerIncomeBound}</Text>
+                </Flex>
+                {/* <div className="graph-container">
+                  <h3>Loan Term vs. Income</h3>
+                  <Bar data={graphData} />
+                </div> */}
+
+            </Card>
+            <div className="info">
+                <p className="info-tag">
+                  IntrestRate: {intrestRate}
+                </p>
+                <p className="info-tag">
+                  UpperIncome: {upperIncomeBound}
+                </p>
+                <p className="info-tag">
+                  lowerIncomeBound: {lowerIncomeBound}
+                </p>
+                <p className="info-tag">
+                  lower Credit Limit: {loanTermLowerBound}
+                </p>
+                <p className="info-tag">
+                  upper Credit Limit: {loanTermUpperBound}
+                </p>
+                
+
+            </div>
+
+
+        </div>
     </div>
     
   )

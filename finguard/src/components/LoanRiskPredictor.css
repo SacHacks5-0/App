@@ -27,6 +27,7 @@
     border-radius: var(--main-border);
     box-shadow: var(--main-shadow);
     padding: var(--main-padding);
+    overflow-y: auto;
     @media(max-width: 1000px){
         width: 90%;
         overflow-y: visible; /* Disable the scrollbar on smaller screens */
@@ -56,17 +57,28 @@
 }
 .Calculate{
     cursor: pointer;
+    width: 40%;
+    height: 80px;
+    color: #000;
+    background-color: #1CCAA1;
+    border: none;
+    border-radius: var(--main-border);
 }
 .btn-con{
     width: 100%;
+    height: 20%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center
 }
 
 .result{
     width: 70%;
     height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     border-radius: var(--main-border);
     box-shadow: var(--main-shadow);
     padding: var(--main-padding);
@@ -75,4 +87,16 @@
     }
 } 
 
+.card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--main-shadow);
+    width: 40%;
+    height: 40%;
+}
 
+.info-tag{
+    margin: 0;
+    padding: 0;
+}

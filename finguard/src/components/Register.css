@@ -16,11 +16,14 @@
     transform: translate(-50%, -50%);
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 60%;
     height: 60%;
     box-shadow: var(--main-shadow);
     padding: var(--main-padding);
     border-radius: var(--main-border);
+
+
     
 }
 .contents{
@@ -50,4 +53,4 @@
     justify-content: center;
 }
 
-}
+
