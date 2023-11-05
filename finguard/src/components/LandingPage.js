@@ -10,9 +10,9 @@ function LandingPage(){
                 <h3>Every choice counts for a financially sustainable future</h3>
                 <div className="btn-loc">
                     
-                  <button className="register" onClick={() => window.location.href = 'register.jsx'}>Register</button>
+                  <button className="register" onClick={() => window.location.href = 'register.js'}>Register</button>
                   
-                  <button className="login" onClick={() => window.location.href = 'login.jsx'}>Login</button>
+                  <button className="login" onClick={() => window.location.href = 'login.js'}>Login</button>
                 </div>
             </div>
         </div>
